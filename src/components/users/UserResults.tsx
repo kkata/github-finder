@@ -1,28 +1,20 @@
-import { useEffect, useState } from "react";
-import { Endpoints } from "@octokit/types";
+import { useEffect, useContext } from "react";
 import { Spinner } from "../layout/Spinner";
 import { UserItem } from "./UserItem";
-
-type listUsers = Endpoints["GET /users"]["response"]["data"];
+import { GithubContext } from "../../context/github/GithubContext";
 
 export const UserResults = () => {
-  const [users, setUsers] = useState<listUsers>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  function useGithubContext() {
+    const ctxValue = useContext(GithubContext);
+    if (ctxValue === undefined)
+      throw new Error("Expected context value to be set");
+    return ctxValue;
+  }
+  const { users, loading, fetchUsers } = useGithubContext();
 
   useEffect(() => {
     fetchUsers();
   }, []);
-
-  const fetchUsers = async () => {
-    const res = await fetch(`${process.env.REACT_APP_GITHUB_URL}/users`, {
-      headers: {
-        Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
-      },
-    });
-    const data = await res.json();
-    setUsers(data);
-    setLoading(false);
-  };
 
   if (!loading) {
     return (
