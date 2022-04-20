@@ -1,7 +1,7 @@
-import { createContext, useState, ReactNode } from "react";
-import { GithubListUsersType, GithubContextType } from "../../types/github";
+import { createContext, useReducer, ReactNode } from "react";
+import { GithubContextType } from "../../types/github";
+import { githubReducer } from "./GithubReducer";
 
-// export const GithubContext = createContext({} as GithubContextType);
 export const GithubContext = createContext<GithubContextType | undefined>(
   undefined
 );
@@ -10,8 +10,12 @@ const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
 const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
 export const GithubProvider = (props: { children: ReactNode }) => {
-  const [users, setUsers] = useState<GithubListUsersType>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const initialState = {
+    users: [],
+    loading: true,
+  };
+
+  const [state, dispatch] = useReducer(githubReducer, initialState);
 
   const fetchUsers = async () => {
     const res = await fetch(`${GITHUB_URL}/users`, {
@@ -20,12 +24,13 @@ export const GithubProvider = (props: { children: ReactNode }) => {
       },
     });
     const data = await res.json();
-    setUsers(data);
-    setLoading(false);
+    dispatch({ type: "GET_USERS", payload: data });
   };
 
   return (
-    <GithubContext.Provider value={{ users, loading, fetchUsers }}>
+    <GithubContext.Provider
+      value={{ users: state.users, loading: state.loading, fetchUsers }}
+    >
       {props.children}
     </GithubContext.Provider>
   );
