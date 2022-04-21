@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { Spinner } from "../layout/Spinner";
 import { UserItem } from "./UserItem";
 import { GithubContext } from "../../context/github/GithubContext";
@@ -10,11 +10,7 @@ export const UserResults = () => {
       throw new Error("Expected context value to be set");
     return ctxValue;
   }
-  const { users, loading, fetchUsers } = useGithubContext();
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  const { users, loading } = useGithubContext();
 
   if (!loading) {
     return (
