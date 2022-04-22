@@ -1,16 +1,9 @@
-import { useContext } from "react";
 import { Spinner } from "../layout/Spinner";
 import { UserItem } from "./UserItem";
-import { GithubContext } from "../../context/github/GithubContext";
+import { useGithubCtx } from "../../context/github/GithubContext";
 
 export const UserResults = () => {
-  function useGithubContext() {
-    const ctxValue = useContext(GithubContext);
-    if (ctxValue === undefined)
-      throw new Error("Expected context value to be set");
-    return ctxValue;
-  }
-  const { users, loading } = useGithubContext();
+  const { users, loading } = useGithubCtx();
 
   if (!loading) {
     return (
