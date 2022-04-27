@@ -2,6 +2,7 @@ import { GithubListUsersType } from "../../types/github";
 
 const GET_USERS = "GET_USERS" as const;
 const SET_LOADING = "SET_LOADING" as const;
+const REMOVE_USERS = "REMOVE_USERS" as const;
 
 export const getUsers = (users: GithubListUsersType) => ({
   type: GET_USERS,
@@ -13,7 +14,13 @@ export const setLoading = (loading: boolean) => ({
   payload: loading,
 });
 
-type ActionsType = ReturnType<typeof getUsers | typeof setLoading>;
+export const removeUsers = () => ({
+  type: REMOVE_USERS,
+});
+
+type ActionsType = ReturnType<
+  typeof getUsers | typeof setLoading | typeof removeUsers
+>;
 
 type StateType = {
   users: GithubListUsersType;
@@ -32,6 +39,11 @@ export const githubReducer = (state: StateType, action: ActionsType) => {
       return {
         ...state,
         loading: action.payload,
+      };
+    case REMOVE_USERS:
+      return {
+        ...state,
+        users: [],
       };
 
     default:

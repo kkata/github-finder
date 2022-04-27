@@ -1,6 +1,11 @@
 import { useReducer, ReactNode } from "react";
 import { GithubContextType } from "../../types/github";
-import { githubReducer, setLoading, getUsers } from "./GithubReducer";
+import {
+  githubReducer,
+  setLoading,
+  getUsers,
+  removeUsers,
+} from "./GithubReducer";
 import { createCtx } from "../utils";
 
 export const [useGithubCtx, GithubCtxProvider] = createCtx<GithubContextType>();
@@ -32,9 +37,18 @@ export const GithubProvider = (props: { children: ReactNode }) => {
     dispatch(getUsers(items));
   };
 
+  const clearUsers = () => {
+    dispatch(removeUsers());
+  };
+
   return (
     <GithubCtxProvider
-      value={{ users: state.users, loading: state.loading, searchUsers }}
+      value={{
+        users: state.users,
+        loading: state.loading,
+        searchUsers,
+        clearUsers,
+      }}
     >
       {props.children}
     </GithubCtxProvider>

@@ -5,4 +5,5 @@ export type GithubContextType = {
   users: GithubListUsersType;
   loading: boolean;
   searchUsers: (text: string) => void;
+  clearUsers: () => void;
 };

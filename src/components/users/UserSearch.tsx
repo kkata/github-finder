@@ -4,7 +4,7 @@ import { useGithubCtx } from "../../context/github/GithubContext";
 export const UserSearch = () => {
   const [text, setText] = useState("");
 
-  const { users, searchUsers } = useGithubCtx();
+  const { users, searchUsers, clearUsers } = useGithubCtx();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
@@ -47,10 +47,7 @@ export const UserSearch = () => {
       </div>
       {users.length > 0 && (
         <div>
-          <button
-            // onClick={() => dispatch({ type: "CLEAR_USERS" })}
-            className="btn btn-ghost btn-lg"
-          >
+          <button onClick={clearUsers} className="btn btn-ghost btn-lg">
             Clear
           </button>
         </div>
