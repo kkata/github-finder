@@ -16,21 +16,25 @@ export const GithubProvider = (props: { children: ReactNode }) => {
 
   const [state, dispatch] = useReducer(githubReducer, initialState);
 
-  const fetchUsers = async () => {
+  const searchUsers = async (text: string) => {
     dispatch(setLoading(true));
 
-    const res = await fetch(`${GITHUB_URL}/users`, {
+    const params = new URLSearchParams({
+      q: text,
+    });
+
+    const res = await fetch(`${GITHUB_URL}/search/users?${params}`, {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
     });
-    const data = await res.json();
-    dispatch(getUsers(data));
+    const { items } = await res.json();
+    dispatch(getUsers(items));
   };
 
   return (
     <GithubCtxProvider
-      value={{ users: state.users, loading: state.loading, fetchUsers }}
+      value={{ users: state.users, loading: state.loading, searchUsers }}
     >
       {props.children}
     </GithubCtxProvider>

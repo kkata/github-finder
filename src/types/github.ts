@@ -4,5 +4,5 @@ export type GithubListUsersType = Endpoints["GET /users"]["response"]["data"];
 export type GithubContextType = {
   users: GithubListUsersType;
   loading: boolean;
-  fetchUsers: () => void;
+  searchUsers: (text: string) => void;
 };

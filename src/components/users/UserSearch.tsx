@@ -4,7 +4,7 @@ import { useGithubCtx } from "../../context/github/GithubContext";
 export const UserSearch = () => {
   const [text, setText] = useState("");
 
-  const { users } = useGithubCtx();
+  const { users, searchUsers } = useGithubCtx();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
@@ -16,7 +16,7 @@ export const UserSearch = () => {
     if (text === "") {
       alert("Please enter something!");
     } else {
-      // @TODO: search users
+      searchUsers(text);
 
       setText("");
     }
