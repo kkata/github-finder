@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useGithubCtx } from "../../context/github/GithubContext";
+import { useAlertCtx } from "../../context/alert/AlertContext";
 
 export const UserSearch = () => {
   const [text, setText] = useState("");
 
   const { users, searchUsers, clearUsers } = useGithubCtx();
+  const { showAlert } = useAlertCtx();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
@@ -14,7 +16,7 @@ export const UserSearch = () => {
     e.preventDefault();
 
     if (text === "") {
-      alert("Please enter something!");
+      showAlert("Please enter something!", "error");
     } else {
       searchUsers(text);
 
