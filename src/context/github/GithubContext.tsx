@@ -2,7 +2,7 @@ import { useReducer, ReactNode } from "react";
 import {
   GithubContextType,
   GithubListUsersType,
-  GithubListUserType,
+  GithubUserType,
 } from "../../types/github";
 import {
   githubReducer,
@@ -21,7 +21,7 @@ const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 export const GithubProvider = (props: { children: ReactNode }) => {
   const initialState = {
     users: [] as GithubListUsersType,
-    user: {} as GithubListUserType,
+    user: {} as GithubUserType,
     loading: false,
   };
 

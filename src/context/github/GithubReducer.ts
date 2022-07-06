@@ -1,4 +1,4 @@
-import { GithubListUsersType, GithubListUserType } from "../../types/github";
+import { GithubListUsersType, GithubUserType } from "../../types/github";
 
 const GET_USERS = "GET_USERS" as const;
 const GET_USER = "GET_USER" as const;
@@ -10,7 +10,7 @@ export const getUsers = (users: GithubListUsersType) => ({
   payload: users,
 });
 
-export const getUser = (user: GithubListUsersType["0"]) => ({
+export const getUser = (user: GithubUserType) => ({
   type: GET_USER,
   payload: user,
 });
@@ -30,7 +30,7 @@ type ActionsType = ReturnType<
 
 type StateType = {
   users: GithubListUsersType;
-  user: GithubListUserType;
+  user: GithubUserType;
   loading: boolean;
 };
 

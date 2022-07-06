@@ -1,7 +1,7 @@
-import { GithubListUserType } from "../../types/github";
+import { GithubListUsersType } from "../../types/github";
 import { Link } from "react-router-dom";
 
-export const UserItem: React.FC<{ user: GithubListUserType }> = ({
+export const UserItem: React.FC<{ user: GithubListUsersType[0] }> = ({
   user: { login, avatar_url },
 }) => {
   return (

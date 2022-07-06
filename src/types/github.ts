@@ -1,11 +1,11 @@
 import { Endpoints } from "@octokit/types";
 
 export type GithubListUsersType = Endpoints["GET /users"]["response"]["data"];
-export type GithubListUserType = Endpoints["GET /users"]["response"]["data"][0];
+export type GithubUserType = Endpoints["GET /user"]["response"]["data"];
 
 export type GithubContextType = {
   users: GithubListUsersType;
-  user: GithubListUserType;
+  user: GithubUserType;
   loading: boolean;
   searchUsers: (text: string) => void;
   clearUsers: () => void;
