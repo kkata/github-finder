@@ -1,9 +1,7 @@
-import { Endpoints } from "@octokit/types";
+import { GithubListUserType } from "../../types/github";
 import { Link } from "react-router-dom";
 
-type User = Endpoints["GET /users"]["response"]["data"][0];
-
-export const UserItem: React.FC<{ user: User }> = ({
+export const UserItem: React.FC<{ user: GithubListUserType }> = ({
   user: { login, avatar_url },
 }) => {
   return (

@@ -1,9 +1,14 @@
 import { useReducer, ReactNode } from "react";
-import { GithubContextType } from "../../types/github";
+import {
+  GithubContextType,
+  GithubListUsersType,
+  GithubListUserType,
+} from "../../types/github";
 import {
   githubReducer,
   setLoading,
   getUsers,
+  getUser,
   removeUsers,
 } from "./GithubReducer";
 import { createCtx } from "../utils";
@@ -15,7 +20,8 @@ const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
 export const GithubProvider = (props: { children: ReactNode }) => {
   const initialState = {
-    users: [],
+    users: [] as GithubListUsersType,
+    user: {} as GithubListUserType,
     loading: false,
   };
 
@@ -37,6 +43,24 @@ export const GithubProvider = (props: { children: ReactNode }) => {
     dispatch(getUsers(items));
   };
 
+  // Get single user
+  const searchUser = async (login: string) => {
+    dispatch(setLoading(true));
+
+    const res = await fetch(`${GITHUB_URL}/users/${login}`, {
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+      },
+    });
+
+    if (res.status === 404) {
+      window.location.href = "/notfound";
+    } else {
+      const data = await res.json();
+      dispatch(getUser(data));
+    }
+  };
+
   const clearUsers = () => {
     dispatch(removeUsers());
   };
@@ -45,8 +69,10 @@ export const GithubProvider = (props: { children: ReactNode }) => {
     <GithubCtxProvider
       value={{
         users: state.users,
+        user: state.user,
         loading: state.loading,
         searchUsers,
+        searchUser,
         clearUsers,
       }}
     >
