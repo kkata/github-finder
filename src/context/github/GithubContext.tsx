@@ -12,6 +12,7 @@ import {
   removeUsers,
 } from "./GithubReducer";
 import { createCtx } from "../utils";
+import { Params } from "react-router-dom";
 
 export const [useGithubCtx, GithubCtxProvider] = createCtx<GithubContextType>();
 
@@ -44,10 +45,10 @@ export const GithubProvider = (props: { children: ReactNode }) => {
   };
 
   // Get single user
-  const searchUser = async (login: string) => {
+  const searchUser = async (name: Readonly<Params<string>>) => {
     dispatch(setLoading(true));
 
-    const res = await fetch(`${GITHUB_URL}/users/${login}`, {
+    const res = await fetch(`${GITHUB_URL}/users/${name.login}`, {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
