@@ -3,12 +3,14 @@ import {
   GithubContextType,
   GithubListUsersType,
   GithubUserType,
+  GithubRepoType,
 } from "../../types/github";
 import {
   githubReducer,
   setLoading,
   getUsers,
   getUser,
+  getRepos,
   removeUsers,
 } from "./GithubReducer";
 import { createCtx } from "../utils";
@@ -23,6 +25,7 @@ export const GithubProvider = (props: { children: ReactNode }) => {
   const initialState = {
     users: [] as GithubListUsersType,
     user: {} as GithubUserType,
+    repos: {} as GithubRepoType,
     loading: false,
   };
 
@@ -62,6 +65,28 @@ export const GithubProvider = (props: { children: ReactNode }) => {
     }
   };
 
+  // Get user repos
+  const searchRepos = async (name: Readonly<Params<string>>) => {
+    dispatch(setLoading(true));
+
+    const params = new URLSearchParams({
+      per_page: "10",
+      sort: "updated",
+    });
+
+    const res = await fetch(
+      `${GITHUB_URL}/users/${name.login}/repos?${params}`,
+      {
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+    dispatch(getRepos(data));
+  };
+
   const clearUsers = () => {
     dispatch(removeUsers());
   };
@@ -71,9 +96,11 @@ export const GithubProvider = (props: { children: ReactNode }) => {
       value={{
         users: state.users,
         user: state.user,
+        repos: state.repos,
         loading: state.loading,
         searchUsers,
         searchUser,
+        searchRepos,
         clearUsers,
       }}
     >

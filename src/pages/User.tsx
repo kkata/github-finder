@@ -2,16 +2,18 @@ import { FaCodepen, FaStore, FaUserFriends, FaUsers } from "react-icons/fa";
 import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Spinner } from "../components/layout/Spinner";
+import { RepoList } from "../components/repos/RepoList";
 import { useGithubCtx } from "../context/github/GithubContext";
 
 export const User = () => {
-  const { searchUser, user, loading } = useGithubCtx();
+  const { searchUser, user, searchRepos, repos, loading } = useGithubCtx();
 
   const loginName = useParams();
 
   useEffect(() => {
     searchUser(loginName);
-  }, [loginName]);
+    searchRepos(loginName);
+  }, []);
 
   const {
     name,
@@ -158,6 +160,8 @@ export const User = () => {
             </div>
           </div>
         </div>
+
+        <RepoList repos={repos} />
       </div>
     </>
   );

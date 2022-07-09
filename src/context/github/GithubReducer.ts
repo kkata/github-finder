@@ -1,7 +1,12 @@
-import { GithubListUsersType, GithubUserType } from "../../types/github";
+import {
+  GithubListUsersType,
+  GithubUserType,
+  GithubRepoType,
+} from "../../types/github";
 
 const GET_USERS = "GET_USERS" as const;
 const GET_USER = "GET_USER" as const;
+const GET_REPOS = "GET_REPOS" as const;
 const SET_LOADING = "SET_LOADING" as const;
 const REMOVE_USERS = "REMOVE_USERS" as const;
 
@@ -15,6 +20,11 @@ export const getUser = (user: GithubUserType) => ({
   payload: user,
 });
 
+export const getRepos = (repos: GithubRepoType) => ({
+  type: GET_REPOS,
+  payload: repos,
+});
+
 export const setLoading = (loading: boolean) => ({
   type: SET_LOADING,
   payload: loading,
@@ -25,12 +35,17 @@ export const removeUsers = () => ({
 });
 
 type ActionsType = ReturnType<
-  typeof getUsers | typeof getUser | typeof setLoading | typeof removeUsers
+  | typeof getUsers
+  | typeof getUser
+  | typeof getRepos
+  | typeof setLoading
+  | typeof removeUsers
 >;
 
 type StateType = {
   users: GithubListUsersType;
   user: GithubUserType;
+  repos: GithubRepoType;
   loading: boolean;
 };
 
@@ -46,6 +61,12 @@ export const githubReducer = (state: StateType, action: ActionsType) => {
       return {
         ...state,
         user: action.payload,
+        loading: false,
+      };
+    case GET_REPOS:
+      return {
+        ...state,
+        repos: action.payload,
         loading: false,
       };
     case SET_LOADING:
