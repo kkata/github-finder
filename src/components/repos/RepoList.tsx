@@ -1,4 +1,5 @@
 import { GithubRepoType } from "../../types/github";
+import { RepoItem } from "./RepoItem";
 
 export const RepoList: React.FC<{ repos: GithubRepoType }> = ({ repos }) => {
   if (Array.isArray(repos) && repos.length > 0) {
@@ -12,11 +13,7 @@ export const RepoList: React.FC<{ repos: GithubRepoType }> = ({ repos }) => {
           </div>
         </div>
         {repos.map((repo) => {
-          return (
-            <div key={repo.id}>
-              <p>{repo.name}</p>
-            </div>
-          );
+          return <RepoItem key={repo.id} repo={repo} />;
         })}
       </>
     );

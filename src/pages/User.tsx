@@ -13,6 +13,7 @@ export const User = () => {
   useEffect(() => {
     searchUser(loginName);
     searchRepos(loginName);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const {
