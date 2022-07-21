@@ -1,24 +1,28 @@
 import { useState } from "react";
 import { useGithubCtx } from "../../context/github/GithubContext";
 import { useAlertCtx } from "../../context/alert/AlertContext";
+import { searchUsers } from "../../context/github/GithubActions";
+import { getUsers, setLoading } from "../../context/github/GithubReducer";
 
 export const UserSearch = () => {
   const [text, setText] = useState("");
 
-  const { users, searchUsers, clearUsers } = useGithubCtx();
+  const { users, dispatch, clearUsers } = useGithubCtx();
   const { showAlert } = useAlertCtx();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (text === "") {
       showAlert("Please enter something!", "error");
     } else {
-      searchUsers(text);
+      dispatch(setLoading(true));
+      const users = await searchUsers(text);
+      dispatch(getUsers(users));
 
       setText("");
     }

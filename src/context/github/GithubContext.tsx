@@ -8,7 +8,6 @@ import {
 import {
   githubReducer,
   setLoading,
-  getUsers,
   getUser,
   getRepos,
   removeUsers,
@@ -30,22 +29,6 @@ export const GithubProvider = (props: { children: ReactNode }) => {
   };
 
   const [state, dispatch] = useReducer(githubReducer, initialState);
-
-  const searchUsers = async (text: string) => {
-    dispatch(setLoading(true));
-
-    const params = new URLSearchParams({
-      q: text,
-    });
-
-    const res = await fetch(`${GITHUB_URL}/search/users?${params}`, {
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`,
-      },
-    });
-    const { items } = await res.json();
-    dispatch(getUsers(items));
-  };
 
   // Get single user
   const searchUser = async (name: Readonly<Params<string>>) => {
@@ -94,11 +77,8 @@ export const GithubProvider = (props: { children: ReactNode }) => {
   return (
     <GithubCtxProvider
       value={{
-        users: state.users,
-        user: state.user,
-        repos: state.repos,
-        loading: state.loading,
-        searchUsers,
+        ...state,
+        dispatch,
         searchUser,
         searchRepos,
         clearUsers,

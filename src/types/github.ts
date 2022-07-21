@@ -11,7 +11,7 @@ export type GithubContextType = {
   user: GithubUserType;
   repos: GithubRepoType;
   loading: boolean;
-  searchUsers: (text: string) => void;
+  dispatch: React.Dispatch<any>;
   clearUsers: () => void;
   searchUser: (name: Readonly<Params<string>>) => void;
   searchRepos: (name: Readonly<Params<string>>) => void;
