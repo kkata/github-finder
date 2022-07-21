@@ -4,8 +4,8 @@ import { useParams, Link } from "react-router-dom";
 import { Spinner } from "../components/layout/Spinner";
 import { RepoList } from "../components/repos/RepoList";
 import { useGithubCtx } from "../context/github/GithubContext";
-import { getRepos, getUser, setLoading } from "../context/github/GithubReducer";
-import { searchUser, searchRepos } from "../context/github/GithubActions";
+import { setLoading, getUserAndRepos } from "../context/github/GithubReducer";
+import { searchUserAndRepos } from "../context/github/GithubActions";
 
 export const User = () => {
   const { user, repos, loading, dispatch } = useGithubCtx();
@@ -15,11 +15,8 @@ export const User = () => {
   useEffect(() => {
     dispatch(setLoading(true));
     const getUserData = async () => {
-      const userData = await searchUser(loginName);
-      dispatch(getUser(userData));
-
-      const userRepoData = await searchRepos(loginName);
-      dispatch(getRepos(userRepoData));
+      const userData = await searchUserAndRepos(loginName);
+      dispatch(getUserAndRepos(userData.user, userData.repos));
     };
 
     getUserData();
