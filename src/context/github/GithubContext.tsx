@@ -5,20 +5,10 @@ import {
   GithubUserType,
   GithubRepoType,
 } from "../../types/github";
-import {
-  githubReducer,
-  setLoading,
-  getUser,
-  getRepos,
-  removeUsers,
-} from "./GithubReducer";
+import { githubReducer } from "./GithubReducer";
 import { createCtx } from "../utils";
-import { Params } from "react-router-dom";
 
 export const [useGithubCtx, GithubCtxProvider] = createCtx<GithubContextType>();
-
-const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
-const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
 export const GithubProvider = (props: { children: ReactNode }) => {
   const initialState = {
@@ -30,58 +20,11 @@ export const GithubProvider = (props: { children: ReactNode }) => {
 
   const [state, dispatch] = useReducer(githubReducer, initialState);
 
-  // Get single user
-  const searchUser = async (name: Readonly<Params<string>>) => {
-    dispatch(setLoading(true));
-
-    const res = await fetch(`${GITHUB_URL}/users/${name.login}`, {
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`,
-      },
-    });
-
-    if (res.status === 404) {
-      window.location.href = "/notfound";
-    } else {
-      const data = await res.json();
-      dispatch(getUser(data));
-    }
-  };
-
-  // Get user repos
-  const searchRepos = async (name: Readonly<Params<string>>) => {
-    dispatch(setLoading(true));
-
-    const params = new URLSearchParams({
-      per_page: "10",
-      sort: "updated",
-    });
-
-    const res = await fetch(
-      `${GITHUB_URL}/users/${name.login}/repos?${params}`,
-      {
-        headers: {
-          Authorization: `token ${GITHUB_TOKEN}`,
-        },
-      }
-    );
-
-    const data = await res.json();
-    dispatch(getRepos(data));
-  };
-
-  const clearUsers = () => {
-    dispatch(removeUsers());
-  };
-
   return (
     <GithubCtxProvider
       value={{
         ...state,
         dispatch,
-        searchUser,
-        searchRepos,
-        clearUsers,
       }}
     >
       {props.children}

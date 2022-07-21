@@ -4,17 +4,26 @@ import { useParams, Link } from "react-router-dom";
 import { Spinner } from "../components/layout/Spinner";
 import { RepoList } from "../components/repos/RepoList";
 import { useGithubCtx } from "../context/github/GithubContext";
+import { getRepos, getUser, setLoading } from "../context/github/GithubReducer";
+import { searchUser, searchRepos } from "../context/github/GithubActions";
 
 export const User = () => {
-  const { searchUser, user, searchRepos, repos, loading } = useGithubCtx();
+  const { user, repos, loading, dispatch } = useGithubCtx();
 
   const loginName = useParams();
 
   useEffect(() => {
-    searchUser(loginName);
-    searchRepos(loginName);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(setLoading(true));
+    const getUserData = async () => {
+      const userData = await searchUser(loginName);
+      dispatch(getUser(userData));
+
+      const userRepoData = await searchRepos(loginName);
+      dispatch(getRepos(userRepoData));
+    };
+
+    getUserData();
+  }, [dispatch, loginName]);
 
   const {
     name,

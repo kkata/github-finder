@@ -2,12 +2,16 @@ import { useState } from "react";
 import { useGithubCtx } from "../../context/github/GithubContext";
 import { useAlertCtx } from "../../context/alert/AlertContext";
 import { searchUsers } from "../../context/github/GithubActions";
-import { getUsers, setLoading } from "../../context/github/GithubReducer";
+import {
+  getUsers,
+  removeUsers,
+  setLoading,
+} from "../../context/github/GithubReducer";
 
 export const UserSearch = () => {
   const [text, setText] = useState("");
 
-  const { users, dispatch, clearUsers } = useGithubCtx();
+  const { users, dispatch } = useGithubCtx();
   const { showAlert } = useAlertCtx();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +57,10 @@ export const UserSearch = () => {
       </div>
       {users.length > 0 && (
         <div>
-          <button onClick={clearUsers} className="btn btn-ghost btn-lg">
+          <button
+            onClick={() => dispatch(removeUsers())}
+            className="btn btn-ghost btn-lg"
+          >
             Clear
           </button>
         </div>
