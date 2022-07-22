@@ -12,7 +12,7 @@ const github = axios.create({
   },
 });
 
-export const searchUsers = async (text: string) => {
+export const fetchUsers = async (text: string) => {
   const params = new URLSearchParams({
     q: text,
   });
@@ -22,7 +22,7 @@ export const searchUsers = async (text: string) => {
 };
 
 // Get user and repos from github
-export const searchUserAndRepos = async (
+export const fetchUserAndRepos = async (
   username: Readonly<Params<string>>
 ): Promise<{
   user: GithubUserType;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGithubCtx } from "../../context/github/GithubContext";
 import { useAlertCtx } from "../../context/alert/AlertContext";
-import { searchUsers } from "../../context/github/GithubActions";
+import { fetchUsers } from "../../context/github/GithubActions";
 import {
   getUsers,
   removeUsers,
@@ -25,7 +25,7 @@ export const UserSearch = () => {
       showAlert("Please enter something!", "error");
     } else {
       dispatch(setLoading(true));
-      const users = await searchUsers(text);
+      const users = await fetchUsers(text);
       dispatch(getUsers(users));
 
       setText("");

@@ -5,7 +5,7 @@ import { Spinner } from "../components/layout/Spinner";
 import { RepoList } from "../components/repos/RepoList";
 import { useGithubCtx } from "../context/github/GithubContext";
 import { setLoading, getUserAndRepos } from "../context/github/GithubReducer";
-import { searchUserAndRepos } from "../context/github/GithubActions";
+import { fetchUserAndRepos } from "../context/github/GithubActions";
 
 export const User = () => {
   const { user, repos, loading, dispatch } = useGithubCtx();
@@ -15,7 +15,7 @@ export const User = () => {
   useEffect(() => {
     dispatch(setLoading(true));
     const getUserData = async () => {
-      const userData = await searchUserAndRepos(loginName);
+      const userData = await fetchUserAndRepos(loginName);
       dispatch(getUserAndRepos(userData.user, userData.repos));
     };
 
