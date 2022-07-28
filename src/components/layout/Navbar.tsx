@@ -33,7 +33,7 @@ export const Navbar: React.FC<Props> = ({ title }) => {
 };
 
 Navbar.defaultProps = {
-  title: "Github Finder",
+  title: "GitHub Finder",
 };
 
 Navbar.propTypes = {
