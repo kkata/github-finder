@@ -1,19 +1,14 @@
 import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 
-type Props = {
-  title?: string;
-};
-
-export const Navbar = ({ title }: Props) => {
+export const Navbar = () => {
   return (
     <nav className="navbar mb-12 shadow-lg bg-neutral text-neutral-content">
       <div className="container mx-auto">
         <div className="flex-none px-2 mx-2">
           <FaGithub className="inline pr-2 text-3xl" aria-hidden="true" />
           <Link to="/" className=" text-lg font-bold">
-            {title}
+            GitHub Finder
           </Link>
         </div>
 
@@ -30,12 +25,4 @@ export const Navbar = ({ title }: Props) => {
       </div>
     </nav>
   );
-};
-
-Navbar.defaultProps = {
-  title: "GitHub Finder",
-};
-
-Navbar.propTypes = {
-  title: PropTypes.string,
 };
