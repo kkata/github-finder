@@ -11,7 +11,7 @@ export const Navbar = ({ title }: Props) => {
     <nav className="navbar mb-12 shadow-lg bg-neutral text-neutral-content">
       <div className="container mx-auto">
         <div className="flex-none px-2 mx-2">
-          <FaGithub className="inline pr-2 text-3xl" />
+          <FaGithub className="inline pr-2 text-3xl" aria-hidden="true" />
           <Link to="/" className=" text-lg font-bold">
             {title}
           </Link>
