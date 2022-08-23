@@ -84,7 +84,7 @@ export const User = () => {
                   rel="noreferrer"
                   className="btn btn-outline"
                 >
-                  Visit Github Profile
+                  Visit GitHub Profile
                 </a>
               </div>
             </div>
