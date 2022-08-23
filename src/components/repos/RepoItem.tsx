@@ -21,7 +21,7 @@ export const RepoItem = ({ repo }: Props) => {
     <div className="mb-2 rounded-md card bg-base-200 hover:bg-base-300">
       <div className="card-body">
         <h3 className="mb-2 text-xl font-semibold">
-          <a href={html_url}>
+          <a href={html_url} target="_blank" rel="noreferrer">
             <FaLink className="inline mr-1" aria-hidden="true" /> {name}
           </a>
         </h3>
