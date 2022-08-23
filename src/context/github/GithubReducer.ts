@@ -31,7 +31,7 @@ export const removeUsers = () => ({
   type: REMOVE_USERS,
 });
 
-type ActionsType = ReturnType<
+export type ActionsType = ReturnType<
   | typeof getUsers
   | typeof getUserAndRepos
   | typeof setLoading
