@@ -1,7 +1,11 @@
 import { GithubRepoType } from "../../types/github";
 import { RepoItem } from "./RepoItem";
 
-export const RepoList: React.FC<{ repos: GithubRepoType }> = ({ repos }) => {
+type Props = {
+  repos: GithubRepoType;
+};
+
+export const RepoList = ({ repos }: Props) => {
   if (Array.isArray(repos) && repos.length > 0) {
     return (
       <>

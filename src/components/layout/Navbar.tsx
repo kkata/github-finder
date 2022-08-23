@@ -6,7 +6,7 @@ type Props = {
   title?: string;
 };
 
-export const Navbar: React.FC<Props> = ({ title }) => {
+export const Navbar = ({ title }: Props) => {
   return (
     <nav className="navbar mb-12 shadow-lg bg-neutral text-neutral-content">
       <div className="container mx-auto">

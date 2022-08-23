@@ -2,7 +2,11 @@ import { FaEye, FaInfo, FaLink, FaStar, FaUtensils } from "react-icons/fa";
 
 import { GithubRepoType } from "../../types/github";
 
-export const RepoItem: React.FC<{ repo: GithubRepoType }> = ({ repo }) => {
+type Props = {
+  repo: GithubRepoType;
+};
+
+export const RepoItem = ({ repo }: Props) => {
   const {
     name,
     description,
