@@ -47,7 +47,7 @@ export const UserSearch = () => {
               />
               <button
                 type="submit"
-                className="absolute top-0 right-0 rounded-l-none w-36 btn btn-lg"
+                className="absolute top-0 right-0 rounded-l-none w-32 btn btn-lg"
               >
                 Go
               </button>

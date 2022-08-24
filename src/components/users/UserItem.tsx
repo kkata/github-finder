@@ -25,7 +25,7 @@ export const UserItem = ({ user }: Props) => {
         <div>
           <h2 className="card-title">{user.login}</h2>
           <Link
-            className="text-base-content text-opacity-40"
+            className="text-base-content text-opacity-40 hover:underline"
             to={`/user/${user.login}`}
           >
             Visit Profile

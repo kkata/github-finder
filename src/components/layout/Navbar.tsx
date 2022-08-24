@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   return (
-    <nav className="navbar mb-12 shadow-lg bg-neutral text-neutral-content">
-      <div className="container mx-auto">
+    <nav className="navbar mb-12 shadow-lg bg-neutral text-neutral-content min-h-fit py-4">
+      <div className="container mx-auto flex-wrap">
         <div className="flex-none px-2 mx-2">
           <FaGithub className="inline pr-2 text-3xl" aria-hidden="true" />
           <Link to="/" className=" text-lg font-bold">

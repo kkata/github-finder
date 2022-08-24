@@ -9,6 +9,7 @@ export const About = () => {
           href="https://www.udemy.com/course/modern-react-front-to-back/"
           target="_blank"
           rel="noopener noreferrer"
+          className="hover:underline"
         >
           {" "}
           React Front To Back
@@ -19,6 +20,7 @@ export const About = () => {
             href="https://traversymedia.com"
             target="_blank"
             rel="noopener noreferrer"
+            className="hover:underline"
           >
             {" "}
             Brad Traversy
@@ -32,7 +34,7 @@ export const About = () => {
       <p className="text-lg text-gray-400">
         Layout By:
         <a
-          className="text-white"
+          className="text-white hover:underline"
           href="https://twitter.com/hassibmoddasser"
           target="_blank"
           rel="noopener noreferrer"

@@ -94,18 +94,23 @@ export const User = () => {
               </div>
             </div>
 
-            <div className="rounded-lg shadow-md bg-base-100 stats stats-vertical lg:stats-horizontal">
+            <div className="rounded-lg shadow-md bg-base-100 stats stats-vertical lg:stats-horizontal w-full">
               {location && (
                 <div className="stat">
                   <div className="stat-title text-md">Location</div>
-                  <div className="text-lg stat-value">{location}</div>
+                  <div className="text-lg break-all">{location}</div>
                 </div>
               )}
               {blog && (
                 <div className="stat">
                   <div className="stat-title text-md">Website</div>
-                  <div className="text-lg stat-value">
-                    <a href={websiteUrl} target="_blank" rel="noreferrer">
+                  <div className="text-lg">
+                    <a
+                      href={websiteUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:underline break-all"
+                    >
                       {websiteUrl}
                     </a>
                   </div>
@@ -114,11 +119,12 @@ export const User = () => {
               {twitter_username && (
                 <div className="stat">
                   <div className="stat-title text-md">Twitter</div>
-                  <div className="text-lg stat-value">
+                  <div className="text-lg">
                     <a
                       href={`https://twitter.com/${twitter_username}`}
                       target="_blank"
                       rel="noreferrer"
+                      className="hover:underline break-all"
                     >
                       {twitter_username}
                     </a>
