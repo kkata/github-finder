@@ -1,6 +1,10 @@
 import axios from "axios";
 import { Params } from "react-router-dom";
-import { GithubRepoType, GithubUserType } from "../../types/github";
+import {
+  GithubListUsersType,
+  GithubRepoType,
+  GithubUserType,
+} from "../../types/github";
 
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
 const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
@@ -12,7 +16,9 @@ const github = axios.create({
   },
 });
 
-export const fetchUsers = async (text: string) => {
+export const fetchUsers = async (
+  text: string
+): Promise<GithubListUsersType> => {
   const params = new URLSearchParams({
     q: text,
   });

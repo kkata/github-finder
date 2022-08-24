@@ -21,13 +21,23 @@ export const UserSearch = () => {
     e.preventDefault();
 
     if (searchName === "") {
-      showAlert("Please enter something!", "error");
-    } else {
-      dispatch(setLoading(true));
-      const users = await fetchUsers(searchName);
-      dispatch(getUsers(users));
-      dispatch(setSearchName(searchName));
+      showAlert("Please enter something!", "invalid");
+      return;
     }
+
+    dispatch(setLoading(true));
+
+    const users = await fetchUsers(searchName);
+
+    if (users.length === 0) {
+      showAlert("No search results", "invalid");
+      dispatch(setLoading(false));
+      dispatch(removeUsers());
+      return;
+    }
+
+    dispatch(getUsers(users));
+    dispatch(setSearchName(searchName));
   };
 
   const handleClear = () => {
