@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useGithubCtx } from "../../context/github/GithubContext";
 import { useAlertCtx } from "../../context/alert/AlertContext";
 import { fetchUsers } from "../../context/github/GithubActions";
@@ -6,30 +5,34 @@ import {
   getUsers,
   removeUsers,
   setLoading,
+  setSearchName,
+  removeSearchName,
 } from "../../context/github/GithubReducer";
 
 export const UserSearch = () => {
-  const [text, setText] = useState("");
-
-  const { users, dispatch } = useGithubCtx();
+  const { users, dispatch, searchName } = useGithubCtx();
   const { showAlert } = useAlertCtx();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value);
+    dispatch(setSearchName(e.target.value));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (text === "") {
+    if (searchName === "") {
       showAlert("Please enter something!", "error");
     } else {
       dispatch(setLoading(true));
-      const users = await fetchUsers(text);
+      const users = await fetchUsers(searchName);
       dispatch(getUsers(users));
-
-      setText("");
+      dispatch(setSearchName(searchName));
     }
+  };
+
+  const handleClear = () => {
+    dispatch(removeUsers());
+    dispatch(removeSearchName());
   };
 
   return (
@@ -42,7 +45,7 @@ export const UserSearch = () => {
                 type="text"
                 className="w-full pr-40 bg-gray-200 input input-lg text-black"
                 placeholder="Search"
-                value={text}
+                value={searchName}
                 onChange={handleChange}
               />
               <button
@@ -57,10 +60,7 @@ export const UserSearch = () => {
       </div>
       {users.length > 0 && (
         <div>
-          <button
-            onClick={() => dispatch(removeUsers())}
-            className="btn btn-ghost btn-lg"
-          >
+          <button onClick={handleClear} className="btn btn-ghost btn-lg">
             Clear
           </button>
         </div>
