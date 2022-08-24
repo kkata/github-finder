@@ -30,7 +30,7 @@ export const fetchUserAndRepos = async (
 }> => {
   const [user, repos] = await Promise.all([
     github.get(`/users/${username.login}`),
-    github.get(`/users/${username.login}/repos`),
+    github.get(`/users/${username.login}/repos?sort=pushed`),
   ]);
 
   return {
