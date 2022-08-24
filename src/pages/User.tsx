@@ -56,15 +56,20 @@ export const User = () => {
 
         <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 mb-8 md:gap-8">
           <div className="custom-card-image mb-6 md:mb-0">
-            <div className="rounded-lg shadow-xl card image-full">
-              <figure>
-                <img src={avatar_url} alt="" />
-              </figure>
-              <div className="card-body justify-end">
-                <h2 className="card-title mb-0">{name}</h2>
-                <p className="flex-grow-0">{login}</p>
-              </div>
-            </div>
+            <figure className="rounded-lg shadow-xl card image-full">
+              <img
+                src={avatar_url}
+                width="460"
+                height="460"
+                loading="lazy"
+                alt={`avatar of ${login}`}
+                className="w-full"
+              />
+              <figcaption className="card-body justify-end">
+                <div className="card-title">{name}</div>
+                <div className="flex-grow-0">{login}</div>
+              </figcaption>
+            </figure>
           </div>
 
           <div className="col-span-2">

@@ -12,7 +12,13 @@ export const UserItem = ({ user }: Props) => {
         <div>
           <div className="avatar">
             <div className="rounded-full shadow w-14 h-14">
-              <img src={user.avatar_url} alt="Profile" />
+              <img
+                src={user.avatar_url}
+                width="56"
+                height="56"
+                loading="lazy"
+                alt=""
+              />
             </div>
           </div>
         </div>
