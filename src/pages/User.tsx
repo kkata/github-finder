@@ -56,15 +56,20 @@ export const User = () => {
 
         <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 mb-8 md:gap-8">
           <div className="custom-card-image mb-6 md:mb-0">
-            <div className="rounded-lg shadow-xl card image-full">
-              <figure>
-                <img src={avatar_url} alt="" />
-              </figure>
-              <div className="card-body justify-end">
-                <h2 className="card-title mb-0">{name}</h2>
-                <p className="flex-grow-0">{login}</p>
-              </div>
-            </div>
+            <figure className="rounded-lg shadow-xl card image-full">
+              <img
+                src={avatar_url}
+                width="460"
+                height="460"
+                loading="lazy"
+                alt={`avatar of ${login}`}
+                className="w-full"
+              />
+              <figcaption className="card-body justify-end">
+                <div className="card-title">{name}</div>
+                <div className="flex-grow-0">{login}</div>
+              </figcaption>
+            </figure>
           </div>
 
           <div className="col-span-2">
@@ -84,23 +89,28 @@ export const User = () => {
                   rel="noreferrer"
                   className="btn btn-outline"
                 >
-                  Visit Github Profile
+                  Visit GitHub Profile
                 </a>
               </div>
             </div>
 
-            <div className="rounded-lg shadow-md bg-base-100 stats stats-vertical lg:stats-horizontal">
+            <div className="rounded-lg shadow-md bg-base-100 stats stats-vertical lg:stats-horizontal w-full">
               {location && (
                 <div className="stat">
                   <div className="stat-title text-md">Location</div>
-                  <div className="text-lg stat-value">{location}</div>
+                  <div className="text-lg break-all">{location}</div>
                 </div>
               )}
               {blog && (
                 <div className="stat">
                   <div className="stat-title text-md">Website</div>
-                  <div className="text-lg stat-value">
-                    <a href={websiteUrl} target="_blank" rel="noreferrer">
+                  <div className="text-lg">
+                    <a
+                      href={websiteUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:underline break-all"
+                    >
                       {websiteUrl}
                     </a>
                   </div>
@@ -109,11 +119,12 @@ export const User = () => {
               {twitter_username && (
                 <div className="stat">
                   <div className="stat-title text-md">Twitter</div>
-                  <div className="text-lg stat-value">
+                  <div className="text-lg">
                     <a
                       href={`https://twitter.com/${twitter_username}`}
                       target="_blank"
                       rel="noreferrer"
+                      className="hover:underline break-all"
                     >
                       {twitter_username}
                     </a>
@@ -128,7 +139,7 @@ export const User = () => {
           <div className="grid grid-cols-1 md:grid-cols-3">
             <div className="stat">
               <div className="stat-figure text-secondary">
-                <FaUsers className="text-3xl md:text-5xl" />
+                <FaUsers className="text-3xl md:text-5xl" aria-hidden="true" />
               </div>
               <div className="stat-title pr-5">Followers</div>
               <div className="stat-value pr-5 text-3xl md:text-4xl">
@@ -138,7 +149,10 @@ export const User = () => {
 
             <div className="stat">
               <div className="stat-figure text-secondary">
-                <FaUserFriends className="text-3xl md:text-5xl" />
+                <FaUserFriends
+                  className="text-3xl md:text-5xl"
+                  aria-hidden="true"
+                />
               </div>
               <div className="stat-title pr-5">Following</div>
               <div className="stat-value pr-5 text-3xl md:text-4xl">
@@ -148,7 +162,10 @@ export const User = () => {
 
             <div className="stat">
               <div className="stat-figure text-secondary">
-                <FaCodepen className="text-3xl md:text-5xl" />
+                <FaCodepen
+                  className="text-3xl md:text-5xl"
+                  aria-hidden="true"
+                />
               </div>
               <div className="stat-title pr-5">Public Repos</div>
               <div className="stat-value pr-5 text-3xl md:text-4xl">
@@ -158,7 +175,7 @@ export const User = () => {
 
             <div className="stat">
               <div className="stat-figure text-secondary">
-                <FaStore className="text-3xl md:text-5xl" />
+                <FaStore className="text-3xl md:text-5xl" aria-hidden="true" />
               </div>
               <div className="stat-title pr-5">Public Gists</div>
               <div className="stat-value pr-5 text-3xl md:text-4xl">
