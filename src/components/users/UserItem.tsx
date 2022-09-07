@@ -7,7 +7,7 @@ type Props = {
 
 export const UserItem = ({ user }: Props) => {
   return (
-    <div className="card shadow-md compact side bg-base-100">
+    <div className="card shadow-md compact side bg-base-100 hover:bg-base-200">
       <div className="flex-row items-center space-x-4 card-body">
         <div>
           <div className="avatar">
