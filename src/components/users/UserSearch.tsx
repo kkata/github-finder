@@ -70,7 +70,11 @@ export const UserSearch = () => {
       </div>
       {users.length > 0 && (
         <div>
-          <button onClick={handleClear} className="btn btn-ghost btn-lg">
+          <button
+            onClick={handleClear}
+            type="button"
+            className="btn btn-ghost btn-lg"
+          >
             Clear
           </button>
         </div>
